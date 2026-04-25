@@ -9,7 +9,6 @@ Web app live view reference: `https://dormia-eight.vercel.app/`
 
 - Authenticates users with Google Sign-In and Firebase Auth.
 - Creates/maintains a player profile in Firestore (`players/{uid}`).
-- Mirrors live player status to Realtime Database (`dormia/players/{uid}`).
 - Starts background sleep detection using Android Sleep APIs.
 - Updates sleep state (`isAsleep`, last sleep window) based on:
   - Manual UI actions (`Fall Asleep` / `Wake Up`)
@@ -23,58 +22,28 @@ Web app live view reference: `https://dormia-eight.vercel.app/`
 - Firebase:
   - Firebase Authentication
   - Cloud Firestore
-  - Realtime Database
 - Google Play Services:
   - Google Sign-In
   - Location Services
   - Sleep APIs (classify + segment events)
 
-## Firebase Data Model
+## Firestore Integration
 
-The app writes to both Firestore and Realtime Database so long-lived profile data and live map/presence data can stay in sync.
-
-### Firestore
-
-Collection: `players`
-
-Document ID: Firebase Auth `uid`
-
-Typical fields:
-
-- `uid`, `displayName`, `email`
-- `sleepTargetHours`
-- `xp`, `credits`, `currentStreak`, `longestStreak`
-- `isAsleep`
-- `hasAndroidApk`
-- `continent`, `country`, `city`
-- `lat`, `lng`
-- `lastSleepStart`, `lastSleepEnd` (timestamps)
-- `createdAt` (server timestamp)
-
-### Realtime Database
-
-Path: `dormia/players/{uid}`
-
-Typical fields:
-
-- `displayName`
-- `isAsleep`
-- `continent`, `country`, `city`
-- `lat`, `lng`
+The app stores and updates player state in Cloud Firestore under `players/{uid}`.
+This shared Firestore data is what keeps Android and web experiences aligned in near real time.
 
 ## How It Connects To The Web App
 
 The Android app and web app share the same Firebase project.
 
-- Android updates player profile and live presence in Firebase.
-- Web app reads from the same Firebase paths/collections.
+- Android updates player profile and live presence in Firebase/Firestore.
+- Web app reads the same Firestore-backed player data.
 - Result: when Android updates sleep state/location, web clients can reflect those changes live (for example in the `/live` map view).
 
 Integration contract to keep aligned across Android + web:
 
 - Firestore doc key is always `players/{uid}`.
-- RTDB live path is always `dormia/players/{uid}`.
-- Shared field names should stay consistent (`isAsleep`, `continent`, `country`, `city`, `lat`, `lng`).
+- Keep field naming consistent between Android and web clients.
 
 ## Local Setup
 
@@ -86,7 +55,6 @@ Integration contract to keep aligned across Android + web:
 - A Firebase project with:
   - Authentication (Google provider enabled)
   - Firestore enabled
-  - Realtime Database enabled
 
 ### 2) Firebase Config
 
@@ -136,7 +104,7 @@ Without these, automatic sleep detection and location updates may be limited.
 2. Sign in with Google.
 3. App ensures `players/{uid}` exists.
 4. App marks `hasAndroidApk = true`.
-5. App detects location and syncs to Firestore + RTDB.
+5. App detects location and syncs to Firestore.
 6. If onboarding is incomplete, user sets sleep target + location.
 7. Main screen starts sleep tracking service/subscription.
 8. Sleep events/manual actions update Firebase.
