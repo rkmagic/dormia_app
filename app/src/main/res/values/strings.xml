@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Dormia</string>
+    <string name="sleep_service_channel_name">Sleep Tracking</string>
+    <string name="sleep_service_channel_description">DORMIA foreground sleep tracking status</string>
+    <string name="sleep_service_notification_title">DORMIA</string>
+    <string name="sleep_service_notification_text">DORMIA is tracking your sleep</string>
+</resources>
