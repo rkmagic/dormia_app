@@ -347,7 +347,7 @@ private fun MainTrackingScreen(
             Text("Wake Up")
         }
         Spacer(modifier = Modifier.weight(1f))
-        Text("Open dormia.vercel.app/live to see the map", color = Color(0xFFB0B0C5))
+        Text("Open dormia-eight.vercel.app to see the map", color = Color(0xFFB0B0C5))
         if (!uiState.errorMessage.isNullOrBlank()) {
             Text(uiState.errorMessage, color = Color(0xFFFF6B6B))
         }

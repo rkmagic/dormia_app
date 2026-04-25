@@ -3,7 +3,7 @@
 Dormia is an Android sleep-tracking companion app for the Dormia ecosystem.
 It uses Google Sign-In + Firebase Auth, then syncs player presence and sleep state to Firebase so the web app can render live player status on the map view.
 
-Web app live view reference: `https://dormia.vercel.app/live`
+Web app live view reference: `https://dormia-eight.vercel.app/`
 
 ## What This App Does
 
