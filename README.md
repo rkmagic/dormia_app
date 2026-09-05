@@ -5,6 +5,12 @@ It uses Google Sign-In + Firebase Auth, then syncs player presence and sleep sta
 
 Web app live view reference: `https://dormia-eight.vercel.app/`
 
+## The problem
+
+Most people know they should sleep enough and go to bed on time. Knowing is not the hard part. Stopping is.
+
+Work stretches late. One more task becomes one more hour. Alone, sleep goals are easy to negotiate away. Dormia turns sleep into a game: targets, streaks, leagues, and live presence so going to bed on time and for long enough feels worth competing for.
+
 ## What This App Does
 
 - Authenticates users with Google Sign-In and Firebase Auth.
@@ -14,6 +20,17 @@ Web app live view reference: `https://dormia-eight.vercel.app/`
   - Manual UI actions (`Fall Asleep` / `Wake Up`)
   - Sleep classify + segment events from Google Play Services.
 - Detects location (GPS first, IP fallback) and stores continent/country/city + coordinates.
+
+## Who it's for
+
+- Students who lose sleep to studying, deadlines, and late-night scrolling
+- Professionals who struggle to stop working and actually go to sleep
+
+## Product principles
+
+1. **Sleep as a sport.** Streaks, leagues, and competition create real stakes for bedtime.
+2. **Social pressure, not shame.** See who is still awake. Celebrate wins. Treat lost streaks with playful obituaries so accountability stays fun.
+3. **A simple nightly loop.** Set a sleep target and continent, then compete. Minimal setup.
 
 ## Tech Stack
 
